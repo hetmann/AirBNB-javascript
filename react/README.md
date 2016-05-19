@@ -1,36 +1,36 @@
-# Airbnb React/JSX Style Guide
+# Airbnb React/JSX Ghid de Redactare/Scriere
 
-*A mostly reasonable approach to React and JSX*
+*O abordare rezonabilă pentru React și JSX*
 
-## Table of Contents
+## Cuprins
 
-  1. [Basic Rules](#basic-rules)
+  1. [Reguli de bază](#basic-rules)
   1. [Class vs `React.createClass` vs stateless](#class-vs-reactcreateclass-vs-stateless)
-  1. [Naming](#naming)
-  1. [Declaration](#declaration)
-  1. [Alignment](#alignment)
-  1. [Quotes](#quotes)
-  1. [Spacing](#spacing)
+  1. [Denumirea](#naming)
+  1. [Declarare](#declaration)
+  1. [Aliniere](#alignment)
+  1. [Ghilimele](#quotes)
+  1. [Spațiere](#spacing)
   1. [Props](#props)
-  1. [Parentheses](#parentheses)
-  1. [Tags](#tags)
-  1. [Methods](#methods)
-  1. [Ordering](#ordering)
+  1. [Paranteze](#parentheses)
+  1. [Tag-uri](#tags)
+  1. [Metode](#methods)
+  1. [Ordonare](#ordering)
   1. [`isMounted`](#ismounted)
 
-## Basic Rules
+## Reguli de bază
 
-  - Only include one React component per file.
-    - However, multiple [Stateless, or Pure, Components](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions) are allowed per file. eslint: [`react/no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md#ignorestateless).
-  - Always use JSX syntax.
-  - Do not use `React.createElement` unless you're initializing the app from a file that is not JSX.
+  - Include o singură componentă de React per fișier.
+    - Totusi, multiple [Fara state-uri, sau Curate, Componente](https://facebook.github.io/react/docs/reusable-components.html#stateless-functions) sunt acceptate per fișier. eslint: [`react/no-multi-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-multi-comp.md#ignorestateless).
+  - Folosește sintaxa JSX.
+  - Nu folosi `React.createElement` numai dacă inițializezi app-ul dintr-un fișier care nu este de tip JSX.
 
 ## Class vs `React.createClass` vs stateless
 
-  - If you have internal state and/or refs, prefer `class extends React.Component` over `React.createClass` unless you have a very good reason to use mixins. eslint: [`react/prefer-es6-class`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-es6-class.md) [`react/prefer-stateless-function`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md)
+  - Daca există stări (state) și/sau refs interne, folosește `class extends React.Component` în loc de `React.createClass` numai daca există un motiv bun să utilizezi mixin-uri. eslint: [`react/prefer-es6-class`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-es6-class.md) [`react/prefer-stateless-function`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/prefer-stateless-function.md)
 
     ```jsx
-    // bad
+    // Nerecomandat
     const Listing = React.createClass({
       // ...
       render() {
@@ -38,7 +38,7 @@
       }
     });
 
-    // good
+    // RECOMANDAT
     class Listing extends React.Component {
       // ...
       render() {
@@ -47,305 +47,305 @@
     }
     ```
 
-    And if you don't have state or refs, prefer normal functions (not arrow functions) over classes:
+    Și dacă nu există stări (state-uri) sau refs, folosește funcții normale (nu funcții arrow) în loc de clase:
 
     ```jsx
-    // bad
+    // Nerecomandat
     class Listing extends React.Component {
       render() {
         return <div>{this.props.hello}</div>;
       }
     }
 
-    // bad (relying on function name inference is discouraged)
+    // Nerecomandat (relying on function name inference is discouraged)
     const Listing = ({ hello }) => (
       <div>{hello}</div>
     );
 
-    // good
+    // RECOMANDAT
     function Listing({ hello }) {
       return <div>{hello}</div>;
     }
     ```
 
-## Naming
+## Denumirea
 
-  - **Extensions**: Use `.jsx` extension for React components.
-  - **Filename**: Use PascalCase for filenames. E.g., `ReservationCard.jsx`.
-  - **Reference Naming**: Use PascalCase for React components and camelCase for their instances. eslint: [`react/jsx-pascal-case`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md)
+  - **Extensiile**: Folosește extensia `.jsx` pentru componente React.
+  - **Fișierul**: Folosește PascalCase pentru fișiere. Ex., `CardRezervare.jsx`.
+  - **Denumirea referințelor**: Folosește PascalCase pentru componentele React și camelCase pentru instanțele lor. eslint: [`react/jsx-pascal-case`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-pascal-case.md)
 
     ```jsx
-    // bad
-    import reservationCard from './ReservationCard';
+    // Nerecomandat
+    import cardRezervare from './CardRezervare';
 
-    // good
-    import ReservationCard from './ReservationCard';
+    // RECOMANDAT
+    import CardRezervare from './CardRezervare';
 
-    // bad
-    const ReservationItem = <ReservationCard />;
+    // Nerecomandat
+    const ArticolRezervare = <CardRezervare />;
 
-    // good
-    const reservationItem = <ReservationCard />;
+    // RECOMANDAT
+    const articolRezervare = <CardRezervare />;
     ```
 
-  - **Component Naming**: Use the filename as the component name. For example, `ReservationCard.jsx` should have a reference name of `ReservationCard`. However, for root components of a directory, use `index.jsx` as the filename and use the directory name as the component name:
+  - **Denumirea Componentei**: Folosește numele fișierului ca și numele componentei. De exemply, `CardRezervare.jsx` trebuie să aiba un nume de referință `CardRezervare`. Totusi, pentru componentele principale dintr-un director/folder, folosește `index.jsx` ca și numele fișierului și numele directorul/folder-ul ca și numele componentei:
 
     ```jsx
-    // bad
+    // Nerecomandat
     import Footer from './Footer/Footer';
 
-    // bad
+    // Nerecomandat
     import Footer from './Footer/index';
 
-    // good
+    // RECOMANDAT
     import Footer from './Footer';
     ```
 
-## Declaration
+## Declararea
 
-  - Do not use `displayName` for naming components. Instead, name the component by reference.
+  - Nu folosi `displayName` pentru numirea componentelor. În schimb, denumește componenta prin referință.
 
     ```jsx
-    // bad
+    // Nerecomandat
     export default React.createClass({
-      displayName: 'ReservationCard',
-      // stuff goes here
+      displayName: 'CardRezervare',
+      // alte informații aici
     });
 
-    // good
-    export default class ReservationCard extends React.Component {
+    // RECOMANDAT
+    export default class CardRezervare extends React.Component {
     }
     ```
 
-## Alignment
+## Aliniere
 
-  - Follow these alignment styles for JSX syntax. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
+  - Urmărește aceste stiluri de aliniere pentru sintaxa JSX. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
 
     ```jsx
-    // bad
-    <Foo superLongParam="bar"
-         anotherSuperLongParam="baz" />
+    // Nerecomandat
+    <Foo parametruSuperLung="bar"
+         altParametruSuperLung="baz" />
 
-    // good
+    // RECOMANDAT
     <Foo
-      superLongParam="bar"
-      anotherSuperLongParam="baz"
+      parametruSuperLung="bar"
+      altParametruSuperLung="baz"
     />
 
-    // if props fit in one line then keep it on the same line
+    // dacă props se potrivesc într-o singură linie, păstrează-l în aceeași linie
     <Foo bar="bar" />
 
-    // children get indented normally
+    // copii se indentează normal
     <Foo
-      superLongParam="bar"
-      anotherSuperLongParam="baz"
+      parametruSuperLung="bar"
+      altParametruSuperLung="baz"
     >
       <Quux />
     </Foo>
     ```
 
-## Quotes
+## Ghilimele
 
-  - Always use double quotes (`"`) for JSX attributes, but single quotes for all other JS. eslint: [`jsx-quotes`](http://eslint.org/docs/rules/jsx-quotes)
+  - Folosește ghilimele duble (`"`) pentru atributele JSX, și ghilimele simple pentru restul JS. eslint: [`jsx-quotes`](http://eslint.org/docs/rules/jsx-quotes)
 
-  > Why? JSX attributes [can't contain escaped quotes](http://eslint.org/docs/rules/jsx-quotes), so double quotes make conjunctions like `"don't"` easier to type.
-  > Regular HTML attributes also typically use double quotes instead of single, so JSX attributes mirror this convention.
+  > De ce? atributele JSX [nu pot să conțină ghilimele *escaped*](http://eslint.org/docs/rules/jsx-quotes), ghilimele duble fac o conjuncție pentru `"don't"` mai ușor de scris.
+  > Atributele clasice de HTML folosesc ghilimele duble în loc de cele simple, așadar atributele JSX se folosesc de această convenție.
 
     ```jsx
-    // bad
+    // Nerecomandat
     <Foo bar='bar' />
 
-    // good
+    // RECOMANDAT
     <Foo bar="bar" />
 
-    // bad
+    // Nerecomandat
     <Foo style={{ left: "20px" }} />
 
-    // good
+    // RECOMANDAT
     <Foo style={{ left: '20px' }} />
     ```
 
-## Spacing
+## Spațierea
 
-  - Always include a single space in your self-closing tag.
+  - Tot timpul să se includă un singur spațiu într-un tag simplu.
 
     ```jsx
-    // bad
+    // Nerecomandat
     <Foo/>
 
     // very bad
     <Foo                 />
 
-    // bad
+    // Nerecomandat
     <Foo
      />
 
-    // good
+    // RECOMANDAT
     <Foo />
     ```
 
-  - Do not pad JSX curly braces with spaces. eslint: [`react/jsx-curly-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md)
+  - Nu scrie JSX folosind acoladele cu spații. eslint: [`react/jsx-curly-spacing`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-curly-spacing.md)
 
     ```jsx
-    // bad
+    // Nerecomandat
     <Foo bar={ baz } />
 
-    // good
+    // RECOMANDAT
     <Foo bar={baz} />
     ```
 
 ## Props
 
-  - Always use camelCase for prop names.
+  - Tot timpul folosește camelCase pentru numele proprietății.
 
     ```jsx
-    // bad
+    // Nerecomandat
     <Foo
-      UserName="hello"
-      phone_number={12345678}
+      NumeUtilizator="hello"
+      numar_telefon={12345678}
     />
 
-    // good
+    // RECOMANDAT
     <Foo
-      userName="hello"
-      phoneNumber={12345678}
-    />
-    ```
-
-  - Omit the value of the prop when it is explicitly `true`. eslint: [`react/jsx-boolean-value`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md)
-
-    ```jsx
-    // bad
-    <Foo
-      hidden={true}
-    />
-
-    // good
-    <Foo
-      hidden
+      numeUtilizator="hello"
+      numarTelefon={12345678}
     />
     ```
 
-  - Always include an `alt` prop on `<img>` tags. If the image is presentational, `alt` can be an empty string or the `<img>` must have `role="presentation"`. eslint: [`jsx-a11y/img-has-alt`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/img-has-alt.md)
+  - Omite valoarea unei proprietăți când este egală cu `true`. eslint: [`react/jsx-boolean-value`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md)
 
     ```jsx
-    // bad
-    <img src="hello.jpg" />
+    // Nerecomandat
+    <Foo
+      ascuns={true}
+    />
 
-    // good
-    <img src="hello.jpg" alt="Me waving hello" />
-
-    // good
-    <img src="hello.jpg" alt="" />
-
-    // good
-    <img src="hello.jpg" role="presentation" />
+    // RECOMANDAT
+    <Foo
+      ascuns
+    />
     ```
 
-  - Do not use words like "image", "photo", or "picture" in `<img>` `alt` props. eslint: [`jsx-a11y/img-redundant-alt`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/img-redundant-alt.md)
-
-  > Why? Screenreaders already announce `img` elements as images, so there is no need to include this information in the alt text.
+  - Tot timpul include proprietatea `alt` la tag-urile `<img>`. În cazul în care imaginea este de prezentare, `alt` poate fi un caracter gol sau `<img>`-ul trebuie să conțină `role="prezentare"`. eslint: [`jsx-a11y/img-has-alt`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/img-has-alt.md)
 
     ```jsx
-    // bad
-    <img src="hello.jpg" alt="Picture of me waving hello" />
+    // Nerecomandat
+    <img src="salut.jpg" />
 
-    // good
-    <img src="hello.jpg" alt="Me waving hello" />
+    // RECOMANDAT
+    <img src="salut.jpg" alt="Eu facand cu mana" />
+
+    // RECOMANDAT
+    <img src="salut.jpg" alt="" />
+
+    // RECOMANDAT
+    <img src="salut.jpg" role="prezentare" />
     ```
 
-  - Use only valid, non-abstract [ARIA roles](https://www.w3.org/TR/wai-aria/roles#role_definitions). eslint: [`jsx-a11y/aria-role`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/aria-role.md)
+  - Nu folosi cuvinte ca "image", "photo", or "picture" în `<img>` `alt` props. eslint: [`jsx-a11y/img-redundant-alt`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/img-redundant-alt.md)
+
+  > De ce? Cititoarele de ecran (pentru nevăzători) întotdeauna anunță elementele `img` ca și imagini, așadar nu trebuie să mai conțină cuvintele respectiva în proprietarea alt.
 
     ```jsx
-    // bad - not an ARIA role
+    // Nerecomandat
+    <img src="salut.jpg" alt="Imagine cu mine facand cu mana" />
+
+    // RECOMANDAT
+    <img src="salut.jpg" alt="Eu facand cu mana" />
+    ```
+
+  - Folosește numai valide, neabstracte [roluri ARIA](https://www.w3.org/TR/wai-aria/roles#role_definitions). eslint: [`jsx-a11y/aria-role`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/aria-role.md)
+
+    ```jsx
+    // Nerecomandat - nu este un rol ARIA
     <div role="datepicker" />
 
-    // bad - abstract ARIA role
+    // Nerecomandat - rol abstract ARIA
     <div role="range" />
 
-    // good
+    // RECOMANDAT
     <div role="button" />
     ```
 
-  - Do not use `accessKey` on elements. eslint: [`jsx-a11y/no-access-key`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/no-access-key.md)
+  - Nu folosi `accessKey` la elemente. eslint: [`jsx-a11y/no-access-key`](https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/no-access-key.md)
 
-  > Why? Inconsistencies between keyboard shortcuts and keyboard commands used by people using screenreaders and keyboards complicate accessibility.
+  > De ce? Există inconsecvențe între comenzi rapide de la tastatură și comenzile de la tastatură utilizate de către persoanele care folosesc cititoare de ecran (nevăzători) și tastaturi complicate de accesibilitate.
 
   ```jsx
-  // bad
+  // Nerecomandat
   <div accessKey="h" />
 
-  // good
+  // RECOMANDAT
   <div />
   ```
 
-## Parentheses
+## Parantezele
 
-  - Wrap JSX tags in parentheses when they span more than one line. eslint: [`react/wrap-multilines`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/wrap-multilines.md)
+  - Încadrează tag-urile JSX în paranteze cand conțin mai mult de o linie. eslint: [`react/wrap-multilines`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/wrap-multilines.md)
 
     ```jsx
-    // bad
+    // Nerecomandat
     render() {
-      return <MyComponent className="long body" foo="bar">
-               <MyChild />
-             </MyComponent>;
+      return <ComponentaMea className="ceva lung" foo="bar">
+               <ComponentaCopil />
+             </ComponentaMea>;
     }
 
-    // good
+    // RECOMANDAT
     render() {
       return (
-        <MyComponent className="long body" foo="bar">
-          <MyChild />
-        </MyComponent>
+        <ComponentaMea className="ceva lung" foo="bar">
+          <ComponentaCopil />
+        </ComponentaMea>
       );
     }
 
-    // good, when single line
+    // RECOMANDAT, cand este o singură linie
     render() {
-      const body = <div>hello</div>;
-      return <MyComponent>{body}</MyComponent>;
+      const body = <div>salut</div>;
+      return <ComponentaMea>{body}</ComponentaMea>;
     }
     ```
 
-## Tags
+## Tag-uri
 
-  - Always self-close tags that have no children. eslint: [`react/self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md)
+  - Întotdeauna folosește tag-urile self-close când nu există copii. eslint: [`react/self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md)
 
     ```jsx
-    // bad
-    <Foo className="stuff"></Foo>
+    // Nerecomandat
+    <Foo className="chestii"></Foo>
 
-    // good
-    <Foo className="stuff" />
+    // RECOMANDAT
+    <Foo className="chestii" />
     ```
 
-  - If your component has multi-line properties, close its tag on a new line. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
+  - Dacă componenta are proprietăți multiple, închide tag-ul pe o nouă linie. eslint: [`react/jsx-closing-bracket-location`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-closing-bracket-location.md)
 
     ```jsx
-    // bad
+    // Nerecomandat
     <Foo
       bar="bar"
       baz="baz" />
 
-    // good
+    // RECOMANDAT
     <Foo
       bar="bar"
       baz="baz"
     />
     ```
 
-## Methods
+## Metode
 
-  - Use arrow functions to close over local variables.
+  - Folosește funcțiile arrow să incluzi variabile locale.
 
     ```jsx
-    function ItemList(props) {
+    function ListaElemente(props) {
       return (
         <ul>
-          {props.items.map((item, index) => (
+          {props.elemente.map((element, index) => (
             <Item
-              key={item.key}
-              onClick={() => doSomethingWith(item.name, index)}
+              key={element.key}
+              onClick={() => faceCevaCu(element.nume, index)}
             />
           ))}
         </ul>
@@ -353,12 +353,12 @@
     }
     ```
 
-  - Bind event handlers for the render method in the constructor. eslint: [`react/jsx-no-bind`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
+  - Leagă evenimentele de manipulare (onClick, onBlur, onChange) pentru metoda render în constructor. eslint: [`react/jsx-no-bind`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
 
-  > Why? A bind call in the render path creates a brand new function on every single render.
+  > De ce? Când o nouă legătura se apelează (cu bind) în render atunci se creează o nouă functie pentru fiecare render.
 
     ```jsx
-    // bad
+    // Nerecomandat
     class extends React.Component {
       onClickDiv() {
         // do stuff
@@ -369,7 +369,7 @@
       }
     }
 
-    // good
+    // RECOMANDAT
     class extends React.Component {
       constructor(props) {
         super(props);
@@ -378,7 +378,7 @@
       }
 
       onClickDiv() {
-        // do stuff
+        // face chestii
       }
 
       render() {
@@ -387,37 +387,37 @@
     }
     ```
 
-  - Do not use underscore prefix for internal methods of a React component.
+  - NU folosi prefixul underscore pentru metode interne într-o componentă React.
 
     ```jsx
-    // bad
+    // Nerecomandat
     React.createClass({
       _onClickSubmit() {
-        // do stuff
+        // face chestii
       },
 
-      // other stuff
+      // alte chestii
     });
 
-    // good
+    // RECOMANDAT
     class extends React.Component {
       onClickSubmit() {
-        // do stuff
+        // face chestii
       }
 
-      // other stuff
+      // alte chestii
     }
     ```
 
-  - Be sure to return a value in your `render` methods. eslint: [`require-render-return`](https://github.com/yannickcr/eslint-plugin-react/pull/502)
+  - Asigură să returnezi o valoare in metodele `render`. eslint: [`require-render-return`](https://github.com/yannickcr/eslint-plugin-react/pull/502)
 
     ```jsx
-    // bad
+    // Nerecomandat
     render() {
       (<div />);
     }
 
-    // good
+    // RECOMANDAT
     render() {
       return (<div />);
     }
@@ -499,10 +499,10 @@
 
 ## `isMounted`
 
-  - Do not use `isMounted`. eslint: [`react/no-is-mounted`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md)
+  - Do not folosește `isMounted`. eslint: [`react/no-is-mounted`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md)
 
   > Why? [`isMounted` is an anti-pattern][anti-pattern], is not available when using ES6 classes, and is on its way to being officially deprecated.
 
   [anti-pattern]: https://facebook.github.io/react/blog/2015/12/16/ismounted-antipattern.html
 
-**[⬆ back to top](#table-of-contents)**
+**[⬆ înapoi sus](#table-of-contents)**
