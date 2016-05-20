@@ -7,15 +7,15 @@
   1. [Reguli de bază](#reguli-de-bază)
   1. [Class vs `React.createClass` vs stateless](#class-vs-reactcreateclass-vs-stateless)
   1. [Denumirea](#denumirea)
-  1. [Declarare](#declaration)
-  1. [Aliniere](#alignment)
-  1. [Ghilimele](#quotes)
-  1. [Spațiere](#spacing)
+  1. [Declarare](#declarare)
+  1. [Aliniere](#aliniere)
+  1. [Ghilimele](#ghilimele)
+  1. [Spațiere](#spațiere)
   1. [Props](#props)
-  1. [Paranteze](#parentheses)
-  1. [Tag-uri](#tags)
-  1. [Metode](#methods)
-  1. [Ordonare](#ordering)
+  1. [Paranteze](#paranteze)
+  1. [Tag-uri](#tag-uri)
+  1. [Metode](#metode)
+  1. [Ordonare](#ordonare)
   1. [`isMounted`](#ismounted)
 
 ## Reguli de bază
@@ -423,11 +423,11 @@
     }
     ```
 
-## Ordering
+## Ordonarea
 
-  - Ordering for `class extends React.Component`:
+  - Ordonarea pentru `class extends React.Component`:
 
-  1. optional `static` methods
+  1. opțional methodele `static`
   1. `constructor`
   1. `getChildContext`
   1. `componentWillMount`
@@ -437,12 +437,12 @@
   1. `componentWillUpdate`
   1. `componentDidUpdate`
   1. `componentWillUnmount`
-  1. *clickHandlers or eventHandlers* like `onClickSubmit()` or `onChangeDescription()`
-  1. *getter methods for `render`* like `getSelectReason()` or `getFooterContent()`
-  1. *Optional render methods* like `renderNavigation()` or `renderProfilePicture()`
+  1. *clickHandlers sau eventHandlers* ca și `onClickSubmit()` sau `onChangeDescription()`
+  1. *metode getter pentru `render`* ca și `getSelectReason()` sau `getFooterContent()`
+  1. *metode optionale render* ca și `renderNavigation()` sau `renderProfilePicture()`
   1. `render`
 
-  - How to define `propTypes`, `defaultProps`, `contextTypes`, etc...
+  - Cum definești `propTypes`, `defaultProps`, `contextTypes`, etc...
 
     ```jsx
     import React, { PropTypes } from 'react';
@@ -454,7 +454,7 @@
     };
 
     const defaultProps = {
-      text: 'Hello World',
+      text: 'Ziua bună',
     };
 
     class Link extends React.Component {
@@ -473,7 +473,7 @@
     export default Link;
     ```
 
-  - Ordering for `React.createClass`: eslint: [`react/sort-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/sort-comp.md)
+  - Ordonarea pentru `React.createClass`: eslint: [`react/sort-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/sort-comp.md)
 
   1. `displayName`
   1. `propTypes`
@@ -492,17 +492,17 @@
   1. `componentWillUpdate`
   1. `componentDidUpdate`
   1. `componentWillUnmount`
-  1. *clickHandlers or eventHandlers* like `onClickSubmit()` or `onChangeDescription()`
-  1. *getter methods for `render`* like `getSelectReason()` or `getFooterContent()`
-  1. *Optional render methods* like `renderNavigation()` or `renderProfilePicture()`
+  1. *clickHandlers sau eventHandlers* ca și `onClickSubmit()` sau `onChangeDescription()`
+  1. *metode getter pentru `render`* ca și `getSelectReason()` sau `getFooterContent()`
+  1. *metode optionale render* ca și `renderNavigation()` sau `renderProfilePicture()`
   1. `render`
 
 ## `isMounted`
 
-  - Do not folosește `isMounted`. eslint: [`react/no-is-mounted`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md)
+  - NU folosii `isMounted`. eslint: [`react/no-is-mounted`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md)
 
-  > Why? [`isMounted` is an anti-pattern][anti-pattern], is not available when using ES6 classes, and is on its way to being officially deprecated.
+  > De ce? [`isMounted` este un anti-model][anti-model], nu este disponibil pentru folosirea claselor ES6, și este pe punctul de a fi oficial exclusă.
 
-  [anti-pattern]: https://facebook.github.io/react/blog/2015/12/16/ismounted-antipattern.html
+  [anti-model]: https://facebook.github.io/react/blog/2015/12/16/ismounted-antipattern.html
 
-**[⬆ înapoi sus](#table-of-contents)**
+**[⬆ înapoi sus](#cuprins)**
