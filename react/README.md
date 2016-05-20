@@ -101,7 +101,7 @@
     import Footer from './Footer';
     ```
 
-## Declararea
+## Declarare
 
   - Nu folosi `displayName` pentru numirea componentelor. În schimb, denumește componenta prin referință.
 
@@ -165,9 +165,9 @@
     <Foo style={{ left: '20px' }} />
     ```
 
-## Spațierea
+## Spațiere
 
-  - Tot timpul să se includă un singur spațiu într-un tag simplu.
+  - Tot timpul trebuie inclus un singur spațiu într-un tag simplu.
 
     ```jsx
     // Nerecomandat
@@ -196,7 +196,7 @@
 
 ## Props
 
-  - Tot timpul folosește camelCase pentru numele proprietății.
+  - Tot timpul folosește camelCase pentru numele proprietățiilor.
 
     ```jsx
     // Nerecomandat
