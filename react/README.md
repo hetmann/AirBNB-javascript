@@ -4,9 +4,9 @@
 
 ## Cuprins
 
-  1. [Reguli de bază](#basic-rules)
+  1. [Reguli de bază](#reguli-de-bază)
   1. [Class vs `React.createClass` vs stateless](#class-vs-reactcreateclass-vs-stateless)
-  1. [Denumirea](#naming)
+  1. [Denumirea](#denumirea)
   1. [Declarare](#declaration)
   1. [Aliniere](#alignment)
   1. [Ghilimele](#quotes)
