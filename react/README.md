@@ -279,7 +279,7 @@
   <div />
   ```
 
-## Parantezele
+## Paranteze
 
   - Încadrează tag-urile JSX în paranteze cand conțin mai mult de o linie. eslint: [`react/wrap-multilines`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/wrap-multilines.md)
 
@@ -423,7 +423,7 @@
     }
     ```
 
-## Ordonarea
+## Ordonare
 
   - Ordonarea pentru `class extends React.Component`:
 
